@@ -4,6 +4,7 @@ package com.esotericsoftware.kryonet.rmi;
 import java.io.IOException;
 
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.serializers.ThrowableSerializer;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.KryoNetTestCase;
@@ -146,7 +147,7 @@ public class RmiTest extends KryoNetTestCase {
 		kryo.register(MessageWithTestObject.class);
 		kryo.register(StackTraceElement.class);
 		kryo.register(StackTraceElement[].class);
-		kryo.register(UnsupportedOperationException.class);
+		kryo.register(UnsupportedOperationException.class, new ThrowableSerializer<UnsupportedOperationException>(kryo, UnsupportedOperationException.class));
 		ObjectSpace.registerClasses(kryo);
 	}
 
